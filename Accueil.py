@@ -24,7 +24,7 @@ def chargement():
 
 # Definition de la fonction principale
 def main():
-    st.title(
+    st.subheader(
         "Application de prédiction de la survie des patients atteints de cansaire"
     )
     st.text("   ")
@@ -58,13 +58,10 @@ def main():
     # Récupération de la première ligne
     donnee_entre = donnee_entre[:1]
 
-    # Affichage des données transformé
-    # st.write(donnee_entre)
-    # if st.sidebar.button("Prediction"):
     # Importation du moèle
     chargement_modele = joblib.load("random_survival_forest.pkl")
 
-    #Prédictions(exemple de prédiction de la fonction de survie):
+    #Prédictions de prédiction de la fonction de survie:
     fig, ax = plt.subplots()
     survival_functions = chargement_modele.predict_survival_function(donnee_entre)
     for i, sf in enumerate(survival_functions):

@@ -25,7 +25,7 @@ def chargement():
 # Definition de la fonction principale
 def main():
     st.subheader(
-        "Application de prédiction de la survie des patients atteints de cansaire"
+        "Application de prédiction de la survie des patients atteints de cancer"
     )
     st.text("   ")
     st.text("   ")

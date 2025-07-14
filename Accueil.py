@@ -65,13 +65,14 @@ def main():
     chargement_modele = joblib.load("random_survival_forest.pkl")
 
     #Prédictions(exemple de prédiction de la fonction de survie):
+    fig, ax = plt.subplots()
     survival_functions = chargement_modele.predict_survival_function(donnee_entre)
     for i, sf in enumerate(survival_functions):
-        plt.step(sf.x, sf.y, where="post", label=f"Observation {i+1}")
+        ax.step(sf.x, sf.y, where="post", label=f"Observation {i+1}")
     plt.ylabel("Probabilité de survie")
     plt.xlabel("Temps de survie en mois")
     plt.legend()
     plt.show()
-    st.pyplot()
+    st.pyplot(fig)
 if __name__ == "__main__":
     main()

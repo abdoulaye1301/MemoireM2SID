@@ -65,16 +65,14 @@ def main():
     # Importation du moèle
     chargement_modele = joblib.load("random_survival_forest.pkl")
 
-    # Prévision
-    prevision = chargement_modele.predict_survival_function(donnee_entre)
-
-    # Affichage du prévision
-    st.subheader("Résultat de la prévision")
-    # st.text(prevision)
-    prevision.plot()
-    plt.title("Courbe de prévision de survie du patient après le traitement")
-    plt.xlabel("Durée de survie en mois")
+    #Prédictions(exemple de prédiction de la fonction de survie):
+    survival_functions = chargement_modele.predict_survival_function(donnee_entre)
+    for i, sf in enumerate(survival_functions):
+        plt.step(sf.x, sf.y, where="post", label=f"Observation {i+1}")
     plt.ylabel("Probabilité de survie")
+    plt.xlabel("Temps de survie en mois")
+    plt.legend()
+    plt.show()
     st.pyplot()
 if __name__ == "__main__":
     main()

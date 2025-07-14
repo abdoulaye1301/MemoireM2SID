@@ -2,11 +2,13 @@ import streamlit as st
 import pandas as pd
 
 # Colletion des données d'entré
-st.sidebar.write("Caractéristiques du patient")
+
 def patient():
     # Collecte des données du patient
-    Ulcero_bourgeonnant = st.sidebar.selectbox("Ulcero-bourgeonnant", ("NON", "OUI"))
+    
     colon=st.sidebar.columns(2)
+    colon[0].write("du patient")
+    colon[1].write("Caractéristiques")
     Ulcere_gastrique = colon[1].selectbox("Ulcere Gastrique", ("NON", "OUI"))
     Cardiopathie =colon[0].selectbox("Cardiopathie", ("NON", "OUI"))
     Constipation = colon[1].selectbox("Constipation", ("NON", "OUI"))
@@ -17,6 +19,7 @@ def patient():
     Stenosant = colon[0].selectbox("Stenosant", ("NON", "OUI"))
     Metastases = colon[1].selectbox("Metastases", ("NON", "OUI"))
     Adenopathie =  colon[0].selectbox("Adenopathie", ("NON", "OUI"))
+    Ulcero_bourgeonnant = st.sidebar.selectbox("Ulcero-bourgeonnant", ("NON", "OUI"))
     donne = {
         "Cardiopathie": Cardiopathie,
         "Ulcere_gastrique": Ulcere_gastrique,

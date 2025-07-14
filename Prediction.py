@@ -19,7 +19,7 @@ def patient():
     colon[0].header("Informations du patient")
     Cardiopathie = colon[0].selectbox("Cardiopathie", ("NON", "OUI"))
     Ulcere_gastrique = colon[1].selectbox("Ulcere Gastrique", ("NON", "OUI"))
-    Ulcero_bourgeonnant = colon[0].electbox("Ulcero-bourgeonnant", ("NON", "OUI"))
+    Ulcero_bourgeonnant = colon[0].selectbox("Ulcero-bourgeonnant", ("NON", "OUI"))
     Constipation = colon[1].selectbox("Constipation", ("NON", "OUI"))
     Denitrution = colon[0].selectbox("Denitrution", ("NON", "OUI"))
     Tabac = colon[1].selectbox("Tabac", ("NON", "OUI"))

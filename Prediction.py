@@ -7,8 +7,8 @@ def patient():
     # Collecte des données du patient
     
     colon=st.sidebar.columns(2)
-    colon[1].write("du patient")
-    colon[0].write("Caractéristiques")
+    colon[1].subheader("du patient")
+    colon[0].subheader(" Caractéristiques")
     Ulcere_gastrique = colon[1].selectbox("Ulcere Gastrique", ("NON", "OUI"))
     Cardiopathie =colon[0].selectbox("Cardiopathie", ("NON", "OUI"))
     Constipation = colon[1].selectbox("Constipation", ("NON", "OUI"))

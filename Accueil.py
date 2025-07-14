@@ -65,7 +65,7 @@ def main():
     fig, ax = plt.subplots()
     survival_functions = chargement_modele.predict_survival_function(donnee_entre)
     for i, sf in enumerate(survival_functions):
-        ax.step(sf.x, sf.y, where="post", label=f"Observation {i+1}")
+        ax.step(sf.x, sf.y, where="post")
     plt.ylabel("Probabilité de survie")
     plt.xlabel("Temps de survie en mois")
     plt.legend()

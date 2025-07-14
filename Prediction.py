@@ -5,7 +5,6 @@ import pandas as pd
 st.sidebar.header("Caractéristiques du patient")
 def patient():
     # Collecte des données du patient
-    st.sidebar.header("Informations du patient")
     Ulcero_bourgeonnant = st.sidebar.selectbox("Ulcero-bourgeonnant", ("NON", "OUI"))
     colon=st.sidebar.columns(2)
     Ulcere_gastrique = colon[1].selectbox("Ulcere Gastrique", ("NON", "OUI"))

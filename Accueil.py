@@ -71,5 +71,8 @@ def main():
     plt.legend()
     plt.show()
     st.pyplot(fig)
+    fichier_css = "style.css"
+    with open(fichier_css) as f:
+        st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 if __name__ == "__main__":
     main()

@@ -16,17 +16,17 @@ st.sidebar.header("Caractéristiques du patient")
 def patient():
     colon=st.sidebar.columns(2)
     # Collecte des données du patient
-
-    Cardiopathie = colon[0].sidebar.selectbox("Cardiopathie", ("NON", "OUI"))
-    Ulcere_gastrique = colon[1].sidebar.selectbox("Ulcere Gastrique", ("NON", "OUI"))
-    Ulcero_bourgeonnant = colon[0].sidebar.selectbox("Ulcero-bourgeonnant", ("NON", "OUI"))
-    Constipation = colon[1].sidebar.selectbox("Constipation", ("NON", "OUI"))
-    Denitrution = colon[0].sidebar.selectbox("Denitrution", ("NON", "OUI"))
-    Tabac = colon[1].sidebar.selectbox("Tabac", ("NON", "OUI"))
-    Tubuleux = colon[0].sidebar.selectbox("Tubuleux", ("NON", "OUI"))
-    Infiltrant = colon[1].sidebar.selectbox("Infiltrant", ("NON", "OUI"))
-    Stenosant = colon[0].sidebar.selectbox("Stenosant", ("NON", "OUI"))
-    Metastases = colon[1].sidebar.selectbox("Metastases", ("NON", "OUI"))
+    colon[0].header("Informations du patient")
+    Cardiopathie = colon[0].selectbox("Cardiopathie", ("NON", "OUI"))
+    Ulcere_gastrique = colon[1].selectbox("Ulcere Gastrique", ("NON", "OUI"))
+    Ulcero_bourgeonnant = colon[0].electbox("Ulcero-bourgeonnant", ("NON", "OUI"))
+    Constipation = colon[1].selectbox("Constipation", ("NON", "OUI"))
+    Denitrution = colon[0].selectbox("Denitrution", ("NON", "OUI"))
+    Tabac = colon[1].selectbox("Tabac", ("NON", "OUI"))
+    Tubuleux = colon[0].selectbox("Tubuleux", ("NON", "OUI"))
+    Infiltrant = colon[1].selectbox("Infiltrant", ("NON", "OUI"))
+    Stenosant = colon[0].selectbox("Stenosant", ("NON", "OUI"))
+    Metastases = colon[1].selectbox("Metastases", ("NON", "OUI"))
     Adenopathie = st.sidebar.selectbox("Adenopathie", ("NON", "OUI"))
     donne = {
         "Cardiopathie": Cardiopathie,

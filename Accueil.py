@@ -50,7 +50,6 @@ def main():
                     ['NON','OUI']  
                 ]
     # instanciation
-    st.write(varQuali)
     encoder = OrdinalEncoder(categories=categories_order)
     donnee_entre.loc[:, varQuali] = encoder.fit_transform(donnee_entre[varQuali])
     for var in varQuali:

@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Colletion des données d'entré
-st.sidebar.text("Caractéristiques du patient")
+st.sidebar.write("Caractéristiques du patient")
 def patient():
     # Collecte des données du patient
     Ulcero_bourgeonnant = st.sidebar.selectbox("Ulcero-bourgeonnant", ("NON", "OUI"))

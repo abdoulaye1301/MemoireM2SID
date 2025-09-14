@@ -59,26 +59,6 @@ def main():
     # Supprimer la colonne 'Tempsdesuivi (Mois)' des caractéristiques X car elle est maintenant dans Y
     X_test = X_test.drop('Tempsdesuivi (Mois)', axis=1)
 
-
-
-    #==================================================================#
-    # GRAPHIQUE DE SURVIE DU PATIENT
-    st.header("Fonction de survie prédite du patient")
-    fig, ax = plt.subplots(figsize=(10,6))
-
-    sf_patient = chargement_modele.predict_survival_function(donnee_entre)
-    for i, sf in enumerate(sf_patient):
-        ax.step(sf.x, sf.y, where="post", label="Patient")
-
-    ax.set_xlabel("Temps de survie (mois)")
-    ax.set_ylabel("Probabilité de survie")
-    ax.set_title("Fonction de survie prédite du patient")
-    ax.legend()
-    plt.tight_layout()
-    st.pyplot(fig)
-
-
-
     #==================================================================#
     # GRAPHIQUE DE SURVIE AVEC IMPACT DE CHAQUE VARIABLE
     st.header("Fonction de survie avec impact des variables")
@@ -107,8 +87,8 @@ def main():
 
     # ==================================================================#
     # INTERPRÉTATION DU MODÈLE AVEC VIM
-    #st.header("Calcul de l'importance des variables")
-    #st.write("Calcul en cours, veuillez patienter...")
+    st.header("Calcul de l'importance des variables")
+    st.write("Calcul en cours, veuillez patienter...")
 
     # --- Étape 1 : Conversion de Y_test en tableau structuré ---
     try:
@@ -146,21 +126,12 @@ def main():
     # --- Étape 4 : Affichage des résultats et du graphique ---
     df_vim = pd.DataFrame({'feature': feature_names, 'importance': importances}).sort_values('importance', ascending=False)
 
-   # st.success("Calcul terminé !")
-    #st.dataframe(df_vim)
+    st.success("Calcul terminé !")
+    st.dataframe(df_vim)
 
     st.header("Représentation Graphique des VIM")
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.barplot(x='importance', y='feature', data=df_vim, ax=ax)
-
-    # Ajouter les valeurs au bout de chaque barre
-    for p in ax.patches:
-        width = p.get_width()
-        ax.text(width + 0.001,  # un petit décalage
-                p.get_y() + p.get_height() / 2,
-                f'{width:.3f}',  # 3 décimales
-                va='center')
-
     plt.title('Importance des variables par Permutation')
     plt.xlabel('Baisse du C-index')
     plt.ylabel('Variable')

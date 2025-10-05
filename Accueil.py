@@ -21,7 +21,7 @@ def chargement():
        'Ulcero-bourgeonnant', 'Constipation', 'Denitrution', 'Tabac',
        'Mucineux', 'Tubuleux', 'Infiltrant', 'Stenosant', 'Metastases',
        'Adenopathie', 'Traitement', 'Tempsdesuivi (Mois)', 'Deces']
-    donnee.drop(["Douleur_epigastrique","Douleur_epigastrique","AGE", "SEXE","Mucineux","Traitement",
+    donnee.drop(["Douleur_epigastrique","Douleur_epigastrique","AGE", "SEXE","Mucineux","Ulcere_gastrique","Constipation","Denitrution","Tubuleux",
                  'Tempsdesuivi (Mois)', 'Deces'],axis=1,inplace=True)
     return donnee
 
@@ -39,7 +39,17 @@ def main():
 
     # Encodage des variables d'entrées
     varQuali = donnee_entre.columns.tolist()
-    categories_order = [['NON','OUI']] * len(varQuali)
+    #categories_order = [['NON','OUI']] * len(varQuali)
+    categories_order = [
+                    ['NON','OUI'] ,
+                    ['NON','OUI'] ,
+                    ['NON','OUI']  ,
+                    ['NON','OUI'] ,
+                    ['NON','OUI']  ,
+                    ['NON','OUI']  ,
+                    ['NON','OUI']  ,
+                    ['Chirurgie_Exclusive','Chirurgie_Chimiotherapie']
+                ]
     encoder = OrdinalEncoder(categories=categories_order)
     donnee_entre.loc[:, varQuali] = encoder.fit_transform(donnee_entre[varQuali])
     donnee_entre = donnee_entre.astype(int)
@@ -63,25 +73,25 @@ def main():
 
     #==================================================================#
     # GRAPHIQUE DE SURVIE DU PATIENT
-    st.header("Fonction de survie prédite du patient")
-    fig, ax = plt.subplots(figsize=(10,6))
+   # st.header("Fonction de survie prédite du patient")
+   # fig, ax = plt.subplots(figsize=(10,6))
 
-    sf_patient = chargement_modele.predict_survival_function(donnee_entre)
-    for i, sf in enumerate(sf_patient):
-        ax.step(sf.x, sf.y, where="post", label="Patient")
+#    sf_patient = chargement_modele.predict_survival_function(donnee_entre)
+ #   for i, sf in enumerate(sf_patient):
+  #      ax.step(sf.x, sf.y, where="post", label="Patient")
 
-    ax.set_xlabel("Temps de survie (mois)")
-    ax.set_ylabel("Probabilité de survie")
-    ax.set_title("Fonction de survie prédite du patient")
-    ax.legend()
-    plt.tight_layout()
-    st.pyplot(fig)
+  #  ax.set_xlabel("Temps de survie (mois)")
+ #   ax.set_ylabel("Probabilité de survie")
+  #  ax.set_title("Fonction de survie prédite du patient")
+   # ax.legend()
+  #  plt.tight_layout()
+   # st.pyplot(fig)
 
 
 
     #==================================================================#
     # GRAPHIQUE DE SURVIE AVEC IMPACT DE CHAQUE VARIABLE
-    st.header("Fonction de survie avec impact des variables")
+    #st.header("Fonction de survie avec impact des variables")
     fig, ax = plt.subplots(figsize=(10,6))
 
     # Fonction de survie du patient original
@@ -100,11 +110,15 @@ def main():
 
     ax.set_xlabel("Temps de survie (mois)")
     ax.set_ylabel("Probabilité de survie")
-    ax.set_title("Impact des variables sur la survie")
+    ax.set_title("Fonction de survie avec impact des variables sur la survie")
     ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.tight_layout()
     st.pyplot(fig)
-
+    st.write("**Note :** Chaque courbe représente l'impact de la modification d'une variable binaire sur la fonction de survie du patient.")
+    st.write("Par exemple, si la courbe diminue plus rapidement lorsque 'Cardiopathie' est modifié, cela suggère que la présence de cardiopathie réduit la survie.")
+    st.write("Inversement, si la courbe diminue plus lentement, cela suggère que l'absence de cette condition améliore la survie.")
+    st.write("Cela permet de visualiser l'importance relative de chaque variable sur la survie du patient.")
+    st.write("Cependant, pour une interprétation plus rigoureuse de l'importance des variables, veuillez vous référer à la section suivante sur l'importance des variables par permutation (VIM).")
     # ==================================================================#
     # INTERPRÉTATION DU MODÈLE AVEC VIM
     #st.header("Calcul de l'importance des variables")

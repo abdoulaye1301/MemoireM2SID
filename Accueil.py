@@ -114,11 +114,11 @@ def main():
     ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.tight_layout()
     st.pyplot(fig)
-    st.write("**Note :** Chaque courbe représente l'impact de la modification d'une variable binaire sur la fonction de survie du patient.")
-    st.write("Par exemple, si la courbe diminue plus rapidement lorsque 'Cardiopathie' est modifié, cela suggère que la présence de cardiopathie réduit la survie.")
-    st.write("Inversement, si la courbe diminue plus lentement, cela suggère que l'absence de cette condition améliore la survie.")
-    st.write("Cela permet de visualiser l'importance relative de chaque variable sur la survie du patient.")
-    st.write("Cependant, pour une interprétation plus rigoureuse de l'importance des variables, veuillez vous référer à la section suivante sur l'importance des variables par permutation (VIM).")
+    #st.write("**Note :** Chaque courbe représente l'impact de la modification d'une variable binaire sur la fonction de survie du patient.")
+    #st.write("Par exemple, si la courbe diminue plus rapidement lorsque 'Cardiopathie' est modifié, cela suggère que la présence de cardiopathie réduit la survie.")
+    #st.write("Inversement, si la courbe diminue plus lentement, cela suggère que l'absence de cette condition améliore la survie.")
+    #st.write("Cela permet de visualiser l'importance relative de chaque variable sur la survie du patient.")
+    #st.write("Cependant, pour une interprétation plus rigoureuse de l'importance des variables, veuillez vous référer à la section suivante sur l'importance des variables par permutation (VIM).")
     # ==================================================================#
     # INTERPRÉTATION DU MODÈLE AVEC VIM
     #st.header("Calcul de l'importance des variables")

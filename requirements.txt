@@ -9,3 +9,4 @@ scipy
 lifelines
 Pillow
 scikit-survival
+shap

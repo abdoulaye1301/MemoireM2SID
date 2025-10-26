@@ -43,63 +43,110 @@ def main():
     df_final.sort_values(by='N° Patient', ascending=False,inplace=True)
     numPatient=st.sidebar.selectbox("Sélectionner le patient", df_final['N° Patient'].unique())
     donneePatient=df[df_final['N° Patient']==numPatient]
-    colon=st.sidebar.columns(2)
-    #Ulcere_gastrique = colon[1].selectbox("Ulcere Gastrique", ("NON", "OUI"))
-    colon[0].write(f"**Cardiopathie** : {donneePatient['Cardiopathie'].values[0]}")
-    colon[0].text("   ")
-    colon[0].text("   ")
-    #Constipation = colon[1].selectbox("Constipation", ("NON", "OUI"))
-    #Denitrution = colon[0].selectbox("Denitrution", ("NON", "OUI"))
-    colon[1].write(f"**Tabac :** {donneePatient['Tabac'].values[0]}")
-    colon[1].text("   ")
-    colon[1].text("   ")
-    #Tubuleux = colon[0].selectbox("Tubuleux", ("NON", "OUI"))
-    colon[0].write(f"**Ulcero-bourgeonnant :** {donneePatient['Ulcero-bourgeonnant'].values[0]}")
-    colon[0].text("   ")
-    colon[1].write(f"**Infiltrant :** {donneePatient['Infiltrant'].values[0]}")
-    colon[1].text("   ")
-    colon[1].text("   ")
-    colon[0].write(f"**Stenosant :** {donneePatient['Stenosant'].values[0]}")
-    colon[0].text("   ")
-    colon[0].text("   ")
-    colon[1].write(f"**Metastases :** {donneePatient['Metastases'].values[0]}")
-    colon[1].text("   ")
-    colon[1].text("   ")
-    colon[0].write(f"**Adenopathie :** {donneePatient['Adenopathie'].values[0]}")
-    colon[0].text("   ")
-    colon[0].text("   ")
-    colon[1].write(f"**Tubuleux :** {donneePatient['Tubuleux'].values[0]}")
-
-
-
-
-    #donne2 = patient()
-    #donnee_entre = pd.concat([donne2,df], axis=0)
-    donnee_entre = donneePatient.drop(columns=['N° Patient'])
-    # Encodage des variables d'entrées
-    varQuali = donnee_entre.columns.tolist()
-    #categories_order = [['NON','OUI']] * len(varQuali)
-    categories_order = [
-                    ['NON','OUI'] ,
-                    ['NON','OUI'] ,
-                    ['NON','OUI']  ,
-                    ['NON','OUI'] ,
-                    ['NON','OUI']  ,
-                    ['NON','OUI']  ,
-                    ['NON','OUI']  ,
-                    ['NON','OUI']  
-                ]
-    encoder = OrdinalEncoder(categories=categories_order)
-    donnee_entre.loc[:, varQuali] = encoder.fit_transform(donnee_entre[varQuali])
-    donnee_entre = donnee_entre.astype(int)
-
-    # Récupération de la première ligne (nouveau patient)
-    donnee_entre = donnee_entre[:1]
+   
     #==================================================================#
     choix=st.selectbox("Navigation", ["RSF", "SSVM"], key="navigation")
     if choix=="RSF":
+        colon=st.sidebar.columns(2)
+        #Ulcere_gastrique = colon[1].selectbox("Ulcere Gastrique", ("NON", "OUI"))
+        colon[0].write(f"**Cardiopathie** : {donneePatient['Cardiopathie'].values[0]}")
+        colon[0].text("   ")
+        colon[0].text("   ")
+        #Constipation = colon[1].selectbox("Constipation", ("NON", "OUI"))
+        #Denitrution = colon[0].selectbox("Denitrution", ("NON", "OUI"))
+        colon[1].write(f"**Tabac :** {donneePatient['Tabac'].values[0]}")
+        #Tubuleux = colon[0].selectbox("Tubuleux", ("NON", "OUI"))
+        colon[1].text("   ")
+        colon[1].text("   ")
+        colon[0].write(f"**Ulcero-bourgeonnant :** {donneePatient['Ulcero-bourgeonnant'].values[0]}")
+
+        colon[0].text("   ")
+        colon[1].write(f"**Infiltrant :** {donneePatient['Infiltrant'].values[0]}")
+        colon[1].text("   ")
+        colon[1].text("   ")
+        colon[0].write(f"**Stenosant :** {donneePatient['Stenosant'].values[0]}")
+        colon[0].text("   ")
+        colon[0].text("   ")
+        colon[1].write(f"**Metastases :** {donneePatient['Metastases'].values[0]}")
+        colon[1].text("   ")
+        colon[1].text("   ")
+        colon[0].write(f"**Adenopathie :** {donneePatient['Adenopathie'].values[0]}")
+        colon[0].text("   ")
+        colon[0].text("   ")
+        colon[1].write(f"**Tubuleux :** {donneePatient['Tubuleux'].values[0]}")
+
+
+
+
+        #donne2 = patient()
+        #donnee_entre = pd.concat([donne2,df], axis=0)
+        donnee_entre = donneePatient.drop(columns=['N° Patient'])
+        # Encodage des variables d'entrées
+        varQuali = donnee_entre.columns.tolist()
+        #categories_order = [['NON','OUI']] * len(varQuali)
+        categories_order = [
+                        ['NON','OUI'] ,
+                        ['NON','OUI'] ,
+                        ['NON','OUI']  ,
+                        ['NON','OUI'] ,
+                        ['NON','OUI']  ,
+                        ['NON','OUI']  ,
+                        ['NON','OUI']  ,
+                        ['NON','OUI']  
+                    ]
+        encoder = OrdinalEncoder(categories=categories_order)
+        donnee_entre.loc[:, varQuali] = encoder.fit_transform(donnee_entre[varQuali])
+        donnee_entre = donnee_entre.astype(int)
+
+        # Récupération de la première ligne (nouveau patient)
+        donnee_entre = donnee_entre[:1]
         rsf(donnee_entre)
     elif choix=="SSVM":
+        colon=st.sidebar.columns(2)
+        #Ulcere_gastrique = colon[1].selectbox("Ulcere Gastrique", ("NON", "OUI"))
+        colon[0].write(f"**Cardiopathie** : {donneePatient['Cardiopathie'].values[0]}")
+        colon[0].text("   ")
+        colon[0].text("   ")
+        #Constipation = colon[1].selectbox("Constipation", ("NON", "OUI"))
+        #Denitrution = colon[0].selectbox("Denitrution", ("NON", "OUI"))
+        colon[1].write(f"**Tabac :** {donneePatient['Tabac'].values[0]}")
+        colon[0].text("   ")
+        colon[1].write(f"**Infiltrant :** {donneePatient['Infiltrant'].values[0]}")
+        colon[1].text("   ")
+        colon[1].text("   ")
+        colon[0].write(f"**Stenosant :** {donneePatient['Stenosant'].values[0]}")
+        colon[0].text("   ")
+        colon[0].text("   ")
+        colon[1].write(f"**Metastases :** {donneePatient['Metastases'].values[0]}")
+        colon[1].text("   ")
+        colon[1].text("   ")
+        colon[0].write(f"**Adenopathie :** {donneePatient['Adenopathie'].values[0]}")
+
+        #donne2 = patient()
+        #donnee_entre = pd.concat([donne2,df], axis=0)
+        donnee_entre = donneePatient.drop(columns=['N° Patient'])
+        # Encodage des variables d'entrées
+        varQuali = donnee_entre.columns.tolist()
+        #categories_order = [['NON','OUI']] * len(varQuali)
+        categories_order = [
+                        ['NON','OUI'] ,
+                        ['NON','OUI'] ,
+                        ['NON','OUI']  ,
+                        ['NON','OUI'] ,
+                        ['NON','OUI']  ,
+                        ['NON','OUI']  ,
+                        ['NON','OUI']  ,
+                        ['NON','OUI']  
+                    ]
+        encoder = OrdinalEncoder(categories=categories_order)
+        donnee_entre.loc[:, varQuali] = encoder.fit_transform(donnee_entre[varQuali])
+        donnee_entre = donnee_entre.astype(int)
+
+        # Récupération de la première ligne (nouveau patient)
+        donnee_entre = donnee_entre[:1]
+        donnee_entre.drop('Ulcero-bourgeonnant', axis=1,inplace=True)
+        donnee_entre.drop('Tubuleux', axis=1, inplace=True)
+        #st.write(donnee_entre)
         ssvm(donnee_entre)
         
     # Chargement du CSS

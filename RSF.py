@@ -52,7 +52,7 @@ def rsf(donnee_entre):
     # Fonction de survie du patient original
     sf_base = chargement_modele.predict_survival_function(donnee_entre)
     for i, sf in enumerate(sf_base):
-        ax.step(sf.x, sf.y, where="post", label="Patient original")
+        ax.step(sf.x, sf.y, where="post", label="Patient original", color='black', lw=2,)
 
     # Impact des variables (on inverse les binaires pour voir effet)
     variables = donnee_entre.columns
@@ -61,7 +61,7 @@ def rsf(donnee_entre):
         patient_var[var] = 1 - patient_var[var].iloc[0]  # inversion 0/1
         sf_var = chargement_modele.predict_survival_function(patient_var)
         for i, sf in enumerate(sf_var):
-            ax.step(sf.x, sf.y, where="post", label=f"{var} modifié")
+            ax.step(sf.x, sf.y, where="post", label=f"{var}")
 
     ax.set_xlabel("Temps de survie (mois)")
     ax.set_ylabel("Probabilité de survie")

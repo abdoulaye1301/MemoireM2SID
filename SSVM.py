@@ -179,3 +179,27 @@ def ssvm(donnee_entre):
     except Exception as e:
         st.error(f"Erreur lors du calcul des valeurs SHAP : {e}")
 
+        # --- WATERFALL PLOT SHAP POUR UN PATIENT --- #
+    """
+    try:
+        st.subheader("Interprétation détaillée : contribution cumulée des variables (Waterfall Plot)")
+
+        # Créer la figure waterfall (force plot)
+        shap_values_single = shap_values[0]
+
+        # matplotlib backend pour Streamlit
+        fig_wf = plt.figure(figsize=(10, 6))
+        shap.plots.waterfall(shap_values_single, show=False)
+        st.pyplot(fig_wf)
+    """
+        #st.caption("""
+        #🔍 **Interprétation :**
+        #- Le point de départ (zéro) correspond au score moyen du modèle.
+        #- Les barres rouges ➕ indiquent les variables qui **augmentent le risque**.
+        #- Les barres bleues/vertes ➖ montrent celles qui **diminuent le risque**.
+        #- La somme de tous ces effets donne le **score de risque final** du patient.
+        #""")
+    
+   # except Exception as e:
+    #    st.error(f"Erreur lors de la génération du graphique waterfall SHAP : {e}")
+    

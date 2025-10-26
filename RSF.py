@@ -25,25 +25,6 @@ def rsf(donnee_entre):
     X_test = X_test.drop('Tempsdesuivi (Mois)', axis=1)
 
 
-
-    #==================================================================#
-    # GRAPHIQUE DE SURVIE DU PATIENT
-   # st.header("Fonction de survie prédite du patient")
-   # fig, ax = plt.subplots(figsize=(10,6))
-
-#    sf_patient = chargement_modele.predict_survival_function(donnee_entre)
- #   for i, sf in enumerate(sf_patient):
-  #      ax.step(sf.x, sf.y, where="post", label="Patient")
-
-  #  ax.set_xlabel("Temps de survie (mois)")
- #   ax.set_ylabel("Probabilité de survie")
-  #  ax.set_title("Fonction de survie prédite du patient")
-   # ax.legend()
-  #  plt.tight_layout()
-   # st.pyplot(fig)
-
-
-
     #==================================================================#
     # GRAPHIQUE DE SURVIE AVEC IMPACT DE CHAQUE VARIABLE
     #st.header("Fonction de survie avec impact des variables")
@@ -69,15 +50,8 @@ def rsf(donnee_entre):
     ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.tight_layout()
     st.pyplot(fig)
-    #st.write("**Note :** Chaque courbe représente l'impact de la modification d'une variable binaire sur la fonction de survie du patient.")
-    #st.write("Par exemple, si la courbe diminue plus rapidement lorsque 'Cardiopathie' est modifié, cela suggère que la présence de cardiopathie réduit la survie.")
-    #st.write("Inversement, si la courbe diminue plus lentement, cela suggère que l'absence de cette condition améliore la survie.")
-    #st.write("Cela permet de visualiser l'importance relative de chaque variable sur la survie du patient.")
-    #st.write("Cependant, pour une interprétation plus rigoureuse de l'importance des variables, veuillez vous référer à la section suivante sur l'importance des variables par permutation (VIM).")
-    # ==================================================================#
-    # INTERPRÉTATION DU MODÈLE AVEC VIM
-    #st.header("Calcul de l'importance des variables")
-    #st.write("Calcul en cours, veuillez patienter...")
+ # ==================================================================#
+    # INTERPRÉTATION DU MODÈLE AVEC VIM (Variable Importance Measure)
 
     # --- Étape 1 : Conversion de Y_test en tableau structuré ---
     try:
@@ -135,3 +109,37 @@ def rsf(donnee_entre):
     plt.ylabel('Variable')
     plt.tight_layout()
     st.pyplot(fig)
+
+        # ==================================================================#
+    # 5. INTERPRÉTATION SHAP (impact de chaque variable sur le risque RSF)
+    # ==================================================================#
+    import shap
+
+    st.header("Interprétation SHAP du modèle RSF : impact des variables sur le risque")
+
+    try:
+        # Création d’un explainer SHAP adapté au Random Survival Forest
+        explainer = shap.Explainer(chargement_modele.predict, X_test)
+
+        # Calcul des valeurs SHAP pour le patient en entrée
+        shap_values = explainer(donnee_entre)
+
+        # Construire un DataFrame explicatif
+        shap_df = pd.DataFrame({
+            'Variable': X_test.columns,
+            'Valeur_SHAP': shap_values.values[0],
+            'Valeur_patient': donnee_entre.values[0]
+        }).sort_values('Valeur_SHAP', ascending=False)
+
+        # --- Graphique SHAP barplot ---
+        fig, ax = plt.subplots(figsize=(10, 6))
+        colors = shap_df['Valeur_SHAP'].apply(lambda x: 'orange' if x > 0 else 'blue')
+        ax.barh(shap_df['Variable'], shap_df['Valeur_SHAP'], color=colors)
+        ax.set_xlabel("Valeur SHAP (impact sur le risque de décès)")
+        ax.set_ylabel("Variable")
+        ax.set_title("Impact des variables sur le risque du patient (modèle RSF)")
+        plt.gca().invert_yaxis()
+        st.pyplot(fig)
+
+    except Exception as e:
+        st.error(f"Erreur lors du calcul ou de l'affichage des valeurs SHAP : {e}")

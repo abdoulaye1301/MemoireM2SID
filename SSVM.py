@@ -50,7 +50,7 @@ def ssvm(donnee_entre):
     # ==================================================================#
     # 4. Courbe de survie approximative
     # ==================================================================#
-    """ 
+    """
     st.header("📈 Courbe de survie approximative")
     temps = np.linspace(0, temps_max, 200)
     survie_approx = np.exp(-np.exp(score_risque_patient) * temps / temps_max)
@@ -63,6 +63,7 @@ def ssvm(donnee_entre):
     st.pyplot(fig)
 
     """
+    
     # ==================================================================#
     # 5. C-index et importance globale des variables
     # ==================================================================#
@@ -181,6 +182,7 @@ def ssvm(donnee_entre):
 
         # --- WATERFALL PLOT SHAP POUR UN PATIENT --- #
     """
+    
     try:
         st.subheader("Interprétation détaillée : contribution cumulée des variables (Waterfall Plot)")
 
@@ -192,7 +194,7 @@ def ssvm(donnee_entre):
         shap.plots.waterfall(shap_values_single, show=False)
         st.pyplot(fig_wf)
     """
-        #st.caption("""
+       # st.caption("""
         #🔍 **Interprétation :**
         #- Le point de départ (zéro) correspond au score moyen du modèle.
         #- Les barres rouges ➕ indiquent les variables qui **augmentent le risque**.
@@ -200,6 +202,6 @@ def ssvm(donnee_entre):
         #- La somme de tous ces effets donne le **score de risque final** du patient.
         #""")
     
-   # except Exception as e:
+    #except Exception as e:
     #    st.error(f"Erreur lors de la génération du graphique waterfall SHAP : {e}")
     
